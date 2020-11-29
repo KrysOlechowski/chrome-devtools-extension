@@ -9,8 +9,8 @@ let previousNetworkTabResponsesLength = 0;
 
 window.addEventListener('DOMContentLoaded', (event) => {
    console.log('DOM fully loaded and parsed');
+   // tipserElements = document.getElementsByClassName("te-product-name")
    tipserElements = document.getElementsByClassName("te-dialog-product-details-basic-name")
-
    let counter = 0
    const checkIfTipserElementsOnPage = setInterval(() => {
       // console.log(tipserElements)
@@ -44,9 +44,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
    if (bodyResponse && 'id' in bodyResponse) {
       console.log("response")
+      console.log(bodyResponse)
       tabReponse = ({
          title: bodyResponse.title,
          productId: bodyResponse.id,
+         stockCount: bodyResponse.stockCount,
          env: env
       })
       networkTabResponses.push(tabReponse)
@@ -62,11 +64,16 @@ const compareRequestsToDomElements = () => {
          return elt.innerHTML.trim() == response.title && response.title.trim()
       })
       if (matchedElement) {
+         console.log("elt :")
          console.log(elt)
+         console.log("matchedElement :")
+         console.log(matchedElement)
+         console.log("StockCount : ")
+         console.log(matchedElement[0].stockCount)
          var div = document.createElement("DIV");
          div.style.cssText = "position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #323349;text-align: center;border-radius: 50%;opacity: 0.3;color: white;font-size: 15px;display: flex;align-items: center;justify-content: center;text-decoration:none;"
 
-         div.innerHTML = `<a href='https://administration.${matchedElement[0].env}.tipser.com/#/product/${matchedElement[0].productId}' target="_blank"  style="color:white;text-decoration:none;font-size:20px;">A</a>`
+         div.innerHTML = `<a href='https://administration.${matchedElement[0].env}.tipser.com/#/product/${matchedElement[0].productId}' target="_blank"  style="color:white;text-decoration:none;font-size:18px;">${matchedElement[0].stockCount == null ? "N" : matchedElement[0].stockCount}</a>`
          elt.appendChild(div);
 
       }
