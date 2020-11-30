@@ -3,9 +3,9 @@ const numberOfCalls = document.getElementById("numberOfCalls")
 let numberOfCallsCounter = 0
 
 const checkEnv = (env) => {
-   if (env.includes('prod')) {
+   if (env.includes('prod-')) {
       return 'prod'
-   } else if (env.includes('dev')) {
+   } else if (env.includes('dev-')) {
       return 'dev'
    }
    return 'stage'
@@ -15,7 +15,6 @@ const checkEnv = (env) => {
 chrome.devtools.network.onRequestFinished.addListener(request => {
    request.getContent((body) => {
       if (request.request && request.request.url) {
-         console.log(request)
          if (request.request.url.includes('collections') || request.request.url.includes('products')) {
             const env = checkEnv(request.request.url)
             console.log("mamy req z t3")

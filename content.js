@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
    tipserElements = document.getElementsByClassName("te-dialog-product-details-basic-name")
    let counter = 0
    const checkIfTipserElementsOnPage = setInterval(() => {
-      // console.log(tipserElements)
 
       counter++
       if (tipserElements.length > 0 && networkTabResponses.length > 0) {
@@ -64,12 +63,6 @@ const compareRequestsToDomElements = () => {
          return elt.innerHTML.trim() == response.title && response.title.trim()
       })
       if (matchedElement) {
-         console.log("elt :")
-         console.log(elt)
-         console.log("matchedElement :")
-         console.log(matchedElement)
-         console.log("StockCount : ")
-         console.log(matchedElement[0].stockCount)
          var div = document.createElement("DIV");
          div.style.cssText = "position: absolute;top: 0;right: 0;width: 30px;height: 30px;background-color: #323349;text-align: center;border-radius: 50%;opacity: 0.3;color: white;font-size: 15px;display: flex;align-items: center;justify-content: center;text-decoration:none;"
 
